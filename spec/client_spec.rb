@@ -12,17 +12,17 @@ describe Juicer::Client do
 
   describe "#api_url" do
     it "drops forward slash" do
-      url = client.api_url("/foobar")
+      url = client.send(:api_url, "/foobar")
       expect(url).to eq("http://data.bbc.co.uk/bbcrd-juicer/foobar.json")
     end
 
     it "drops trailing slash" do
-      url = client.api_url("foobar/")
+      url = client.send(:api_url, "foobar/")
       expect(url).to eq("http://data.bbc.co.uk/bbcrd-juicer/foobar.json")
     end
 
     it "drops slashes front and back" do
-      url = client.api_url("//foobar/hello/me//")
+      url = client.send(:api_url, "//foobar/hello/me//")
       expect(url).to eq("http://data.bbc.co.uk/bbcrd-juicer/foobar/hello/me.json")
     end
   end

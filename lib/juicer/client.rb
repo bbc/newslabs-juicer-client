@@ -1,3 +1,5 @@
+# @author Karl Sutt
+
 require 'httpi'
 require 'json'
 
@@ -10,33 +12,33 @@ class Juicer
 
     BASE_PATH = "http://data.bbc.co.uk/bbcrd-juicer"
 
+    # @return [String] API key
+    #
     attr_reader :api_key
 
     # Initialize HTTP client
     #
-    # == Parameters:
-    # api_key::
-    #   API key from Apigee.
-    #
-    # == Returns:
-    # HTTP client instance.
+    # @param api_key [String] the API key from Apigee
+    # @return [Juicer::Client] HTTP client instance
     #
     def initialize(api_key)
       @api_key = api_key
     end
 
-    # Internal method for constructing requests
+    # Internal method for constructing API calls to the Juicer public facing
+    # API. Automatically handles the API key when provided.
     #
-    # == Parameters:
-    # method::
-    #   A valid HTTP method. One of :get, :post, :put, :delete.
-    #   Note thet currently only :get and :post are supported by the Juicer API.
-    # path::
-    #   The `endpoint` to which to make the request.
-    # query_params::
-    #   Any query string params
-    # params::
-    #   Any params
+    # @note Internal method, should not be used directly! See {Juicer} docs
+    #   instead.
+    # @note The Juicer API currently only supports `:get` and `:post` values for
+    #   the `method` param.
+    # @param method [Symbol] HTTP method.
+    # @param path [String] an endpoint path
+    # @param query_params [Hash] a hash of query parameters. List values are
+    #   handled "correctly" in the sense that values of [Array] type produce
+    #   `key[]=foo&key[]=bar` style values, suitable for Rails.
+    # @param body [String] body of the request. Makes sense for POST requests.
+    # @return [Hash, Array<Hash>] either a list of results or one result.
     #
     def request(method, path, query_params = {}, body = nil)
       req                         = HTTPI::Request.new
@@ -48,6 +50,13 @@ class Juicer
       JSON.parse(HTTPI.request(method, req).body)
     end
 
+    private
+
+    # Small helper method for sanitizing the `path` for `request` method.
+    #
+    # @param path [String] a path to an endpoint
+    # @return [String] sanitized and fully constructed endpoint URL
+    #
     def api_url(path)
       path.sub!(/^\/+/, '')
       path.sub!(/\/+$/, '')
