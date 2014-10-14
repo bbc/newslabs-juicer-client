@@ -2,8 +2,6 @@
 
 The API client for the [BBC News Labs Juicer API](http://juicer.bbcnewslabs.co.uk).
 
-This client library currently exposes
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -37,8 +35,8 @@ require 'juicer'
 juicer = Juicer.new("<your API key>")
 ```
 
-Have a look at the documentation for the library on how to filter
-articles, find similar content, etc.
+Have a look at the [documentation](http://bbc-news-labs.github.io/juicer-client/)
+for the library on how to filter articles, find similar content, etc.
 
 ```ruby
 juicer.products
