@@ -10,8 +10,6 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Karl Sutt"]
   spec.email         = ["karl@sutt.ee"]
   spec.summary       = %q{API client for BBC News Labs Juicer.}
-  spec.description   = %q{An API client for querying the BBC News Juicer
-                          programmatically.}
   spec.homepage      = "http://juicer.bbcnewslabs.co.uk"
   spec.license       = "MIT"
 
