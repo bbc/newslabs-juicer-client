@@ -52,7 +52,7 @@ class Juicer
   # @param opts [Hash] A Hash of filter options.
   #   Possible keys are:
   #
-  #     * `text` - a search term, corresponds to Lucene syntax
+  #     * `text` - a search term, corresponds to Lucene syntax.
   #     * `product` - list of products to scope to. See {#products}.
   #     * `content_format` - list of content formats to scope to. See {#formats}.
   #     * `section` - list of sections to scope to. See {#sections}.

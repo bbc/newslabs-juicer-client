@@ -18,8 +18,8 @@ class Juicer
 
     # Initialize HTTP client
     #
-    # @param api_key [String] the API key from Apigee
-    # @return [Juicer::Client] HTTP client instance
+    # @param api_key [String] the API key from Apigee.
+    # @return [Juicer::Client] HTTP client instance.
     #
     def initialize(api_key)
       @api_key = api_key
@@ -33,7 +33,7 @@ class Juicer
     # @note The Juicer API currently only supports `:get` and `:post` values for
     #   the `method` param.
     # @param method [Symbol] HTTP method.
-    # @param path [String] an endpoint path
+    # @param path [String] an endpoint path.
     # @param query_params [Hash] a hash of query parameters. List values are
     #   handled "correctly" in the sense that values of [Array] type produce
     #   `key[]=foo&key[]=bar` style values, suitable for Rails.
@@ -54,8 +54,8 @@ class Juicer
 
     # Small helper method for sanitizing the `path` for `request` method.
     #
-    # @param path [String] a path to an endpoint
-    # @return [String] sanitized and fully constructed endpoint URL
+    # @param path [String] a path to an endpoint.
+    # @return [String] sanitized and fully constructed endpoint URL.
     #
     def api_url(path)
       path.sub!(/^\/+/, '')
