@@ -71,7 +71,6 @@ juicer.similar_articles("news_web_0962731f8c375d5096590ca38cee96e0e408180d")
      "cps_id"=>"20038835",
      "created_at"=>"2012-10-23T12:58:45.247Z",
      "published_at"=>"2012-10-23T11:57:37Z",
-     "juicer_url"=>"http://juicer.bbcnewslabs.co.uk/articles/20038835.json",
      "url"=>"http://www.bbc.co.uk/news/business-20038835"},
     {...}]
 ```
