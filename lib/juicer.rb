@@ -8,7 +8,7 @@ class Juicer
   # Initialize the Juicer API client.
   #
   # @param api_key [String] API key obtained from Apigee.
-  # @return [Juicer] The API client.
+  # @return [Juicer] the API client.
   #
   def initialize(api_key)
     @client = Juicer::Client.new(api_key)
@@ -49,7 +49,7 @@ class Juicer
   #   Just a heads up when doing queries that potentially return a large number
   #   of results.
   #
-  # @param opts [Hash] A Hash of filter options.
+  # @param opts [Hash] a Hash of filter options.
   #   Possible keys are:
   #
   #     * `text` - a search term, corresponds to Lucene syntax.
@@ -79,22 +79,36 @@ class Juicer
   # find semantically similar documents.
   #
   # @param cps_id [String] the `cps_id` of an article.
+  # @param opts [Hash] a Hash of query options
+  #   Possible keys are:
+  #
+  #     * `size` - how many results to return. Results are ordered by their
+  #       "match" score, i.e how similar they are to a given article, and the
+  #       top `size` results are returned.
+  #     * `product` - an [Array] of products to scope to. See {#products}.
   # @return [Array<Hash>] list of similar articles. Currently capped to 10 most
   #   similar.
   #
-  def similar_articles(cps_id)
-    @client.request(:get, "articles/#{cps_id}/similar")["results"]
+  def similar_articles(cps_id, opts = {})
+    @client.request(:get, "articles/#{cps_id}/similar", opts)["results"]
   end
 
   # Fetch articles related (similar) to an arbitrary blob of text. Uses tf-idf
   # algorithm to find semantically similar documents.
   #
   # @param text [String] a blob of text.
+  # @param opts [Hash] a Hash of query options
+  #   Possible keys are:
+  #
+  #     * `size` - how many results to return. Results are ordered by their
+  #       "match" score, i.e how similar they are to the given blob of text, and
+  #       the top `size` results are returned.
+  #     * `product` - an [Array] of products to scope to. See {#products}.
   # @return [Array<Hash>] list of similar articles. Currently capped to 10 most
   #   similar.
   #
-  def similar_to(text)
+  def similar_to(text, opts = {})
     body = { like_text: URI.encode(text) }.to_json
-    @client.request(:post, "similar_to", {}, body)["results"]
+    @client.request(:post, "similar_to", opts, body)["results"]
   end
 end

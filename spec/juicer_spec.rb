@@ -124,10 +124,26 @@ describe Juicer do
       stub_request(:get, "http://data.bbc.co.uk/bbcrd-juicer/articles/#{cps_id}/similar.json")
         .with(query: { apikey: api_key })
         .to_return(body: body.to_json)
+      stub_request(:get, "http://data.bbc.co.uk/bbcrd-juicer/articles/#{cps_id}/similar.json")
+        .with(query: { apikey: api_key, size: 5 })
+        .to_return(body: body.to_json)
+      stub_request(:get, "http://data.bbc.co.uk/bbcrd-juicer/articles/#{cps_id}/similar.json")
+        .with(query: { apikey: api_key, product: ["NewsWeb"] })
+        .to_return(body: body.to_json)
     end
 
-    it "queries the `similar` endpoint" do
+    it "queries the `similar` endpoint with defaults" do
       response = juicer.similar_articles(cps_id)
+      expect(response).to eq(body["results"])
+    end
+
+    it "queries the `similar` endpoint with `size`" do
+      response = juicer.similar_articles(cps_id, size: 5)
+      expect(response).to eq(body["results"])
+    end
+
+    it "queries the `similar` endpoint with `product`" do
+      response = juicer.similar_articles(cps_id, product: ["NewsWeb"])
       expect(response).to eq(body["results"])
     end
   end
@@ -144,10 +160,28 @@ describe Juicer do
         .with(query: { apikey: api_key },
               body: { like_text: URI.encode(text) }.to_json)
         .to_return(body: body.to_json)
+      stub_request(:post, "http://data.bbc.co.uk/bbcrd-juicer/similar_to.json")
+        .with(query: { apikey: api_key, size: 5 },
+              body: { like_text: URI.encode(text) }.to_json)
+        .to_return(body: body.to_json)
+      stub_request(:post, "http://data.bbc.co.uk/bbcrd-juicer/similar_to.json")
+        .with(query: { apikey: api_key, product: ["NewsWeb"] },
+              body: { like_text: URI.encode(text) }.to_json)
+        .to_return(body: body.to_json)
     end
 
-    it "queries the `similar_to` endpoint" do
+    it "queries the `similar_to` endpoint with defaults" do
       response = juicer.similar_to(text)
+      expect(response).to eq(body["results"])
+    end
+
+    it "queries the `similar_to` endpoint with `size`" do
+      response = juicer.similar_to(text, size: 5)
+      expect(response).to eq(body["results"])
+    end
+
+    it "queries the `similar_to` endpoint with `product`" do
+      response = juicer.similar_to(text, product: ["NewsWeb"])
       expect(response).to eq(body["results"])
     end
   end
