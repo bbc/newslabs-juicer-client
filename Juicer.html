@@ -619,12 +619,12 @@
       <pre class="lines">
 
 
-74
 75
-76</pre>
+76
+77</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/juicer.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/juicer.rb', line 75</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_article'>article</span><span class='lparen'>(</span><span class='id identifier rubyid_cps_id'>cps_id</span><span class='rparen'>)</span>
   <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_request'>request</span><span class='lparen'>(</span><span class='symbol'>:get</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>articles/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_cps_id'>cps_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>article</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
@@ -677,7 +677,9 @@ results.</p>
       
         &mdash;
         <div class='inline'>
-<p>a Hash of filter options. Possible keys are:</p>
+<p>a Hash of filter options.</p>
+
+<p>Possible keys are:</p>
 <ul><li>
 <p><code>text</code> - a search term, corresponds to Lucene syntax.</p>
 </li><li>
@@ -727,12 +729,12 @@ certain date. The format is <code>yyyy-mm-dd</code>.</p>
       <pre class="lines">
 
 
-65
 66
-67</pre>
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/juicer.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'lib/juicer.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_articles'>articles</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
   <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_request'>request</span><span class='lparen'>(</span><span class='symbol'>:get</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>articles</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>articles</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
@@ -970,13 +972,15 @@ find semantically similar documents.</p>
       
         &mdash;
         <div class='inline'>
-<p>a Hash of query options Possible keys are:</p>
+<p>a Hash of query options.</p>
+
+<p>Possible keys are:</p>
 <ul><li>
 <p><code>size</code> - how many results to return. Results are ordered by
 their “match” score, i.e how similar they are to a given article, and the
 top <code>size</code> results are returned.</p>
 </li><li>
-<p><code>product</code> - an [Array] of products to scope to. See <span class='object_link'><a href="#products-instance_method" title="Juicer#products (method)">#products</a></span>.</p>
+<p><code>product</code> - a list of products to scope to. See <span class='object_link'><a href="#products-instance_method" title="Juicer#products (method)">#products</a></span>.</p>
 </li></ul>
 </div>
       
@@ -996,7 +1000,7 @@ top <code>size</code> results are returned.</p>
       
         &mdash;
         <div class='inline'>
-<p>list of similar articles. Currently capped to 10 most similar.</p>
+<p>list of similar articles. Defaults to 10 most similar across all products.</p>
 </div>
       
     </li>
@@ -1009,12 +1013,12 @@ top <code>size</code> results are returned.</p>
       <pre class="lines">
 
 
-92
-93
-94</pre>
+94
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/juicer.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'lib/juicer.rb', line 94</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_similar_articles'>similar_articles</span><span class='lparen'>(</span><span class='id identifier rubyid_cps_id'>cps_id</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_request'>request</span><span class='lparen'>(</span><span class='symbol'>:get</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>articles/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_cps_id'>cps_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/similar</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>results</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
@@ -1075,13 +1079,15 @@ algorithm to find semantically similar documents.</p>
       
         &mdash;
         <div class='inline'>
-<p>a Hash of query options Possible keys are:</p>
+<p>a Hash of query options.</p>
+
+<p>Possible keys are:</p>
 <ul><li>
 <p><code>size</code> - how many results to return. Results are ordered by
 their “match” score, i.e how similar they are to the given blob of text,
 and the top <code>size</code> results are returned.</p>
 </li><li>
-<p><code>product</code> - an [Array] of products to scope to. See <span class='object_link'><a href="#products-instance_method" title="Juicer#products (method)">#products</a></span>.</p>
+<p><code>product</code> - a list of products to scope to. See <span class='object_link'><a href="#products-instance_method" title="Juicer#products (method)">#products</a></span>.</p>
 </li></ul>
 </div>
       
@@ -1101,7 +1107,7 @@ and the top <code>size</code> results are returned.</p>
       
         &mdash;
         <div class='inline'>
-<p>list of similar articles. Currently capped to 10 most similar.</p>
+<p>list of similar articles. Defaults to 10 most similar across all products.</p>
 </div>
       
     </li>
@@ -1114,13 +1120,13 @@ and the top <code>size</code> results are returned.</p>
       <pre class="lines">
 
 
-110
-111
-112
-113</pre>
+113
+114
+115
+116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/juicer.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'lib/juicer.rb', line 113</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_similar_to'>similar_to</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>like_text:</span> <span class='const'>URI</span><span class='period'>.</span><span class='id identifier rubyid_encode'>encode</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
@@ -1195,7 +1201,7 @@ and the top <code>size</code> results are returned.</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Oct 21 15:11:55 2014 by
+  Generated on Tue Oct 21 15:18:26 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.4 (ruby-2.1.1).
 </div>
