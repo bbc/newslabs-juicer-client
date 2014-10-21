@@ -50,6 +50,7 @@ class Juicer
   #   of results.
   #
   # @param opts [Hash] a Hash of filter options.
+  #
   #   Possible keys are:
   #
   #     * `text` - a search term, corresponds to Lucene syntax.
@@ -79,15 +80,16 @@ class Juicer
   # find semantically similar documents.
   #
   # @param cps_id [String] the `cps_id` of an article.
-  # @param opts [Hash] a Hash of query options
+  # @param opts [Hash] a Hash of query options.
+  #
   #   Possible keys are:
   #
   #     * `size` - how many results to return. Results are ordered by their
   #       "match" score, i.e how similar they are to a given article, and the
   #       top `size` results are returned.
-  #     * `product` - an [Array] of products to scope to. See {#products}.
-  # @return [Array<Hash>] list of similar articles. Currently capped to 10 most
-  #   similar.
+  #     * `product` - a list of products to scope to. See {#products}.
+  # @return [Array<Hash>] list of similar articles. Defaults to 10 most similar
+  #   across all products.
   #
   def similar_articles(cps_id, opts = {})
     @client.request(:get, "articles/#{cps_id}/similar", opts)["results"]
@@ -97,15 +99,16 @@ class Juicer
   # algorithm to find semantically similar documents.
   #
   # @param text [String] a blob of text.
-  # @param opts [Hash] a Hash of query options
+  # @param opts [Hash] a Hash of query options.
+  #
   #   Possible keys are:
   #
   #     * `size` - how many results to return. Results are ordered by their
   #       "match" score, i.e how similar they are to the given blob of text, and
   #       the top `size` results are returned.
-  #     * `product` - an [Array] of products to scope to. See {#products}.
-  # @return [Array<Hash>] list of similar articles. Currently capped to 10 most
-  #   similar.
+  #     * `product` - a list of products to scope to. See {#products}.
+  # @return [Array<Hash>] list of similar articles. Defaults to 10 most similar
+  #   across all products.
   #
   def similar_to(text, opts = {})
     body = { like_text: URI.encode(text) }.to_json
