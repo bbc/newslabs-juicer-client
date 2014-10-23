@@ -1,4 +1,5 @@
 # @author Karl Sutt
+require 'juicer/client'
 
 class Juicer
 
