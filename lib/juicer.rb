@@ -63,6 +63,10 @@ class Juicer
   #       date. The format is `yyyy-mm-dd`.
   #     * `published_before` - only retrieve articles published before a certain
   #       date. The format is `yyyy-mm-dd`.
+  #     * `page` - pagination. Page numbers start from 1. When omitted, defaults
+  #       to 1.
+  #     * `recent_first` - set to `true` to retrieve the most recent articles
+  #       first. When omitted returns best matched articles first.
   # @return [Array<Hash>] list of articles.
   def articles(opts)
     @client.request(:get, "articles", opts)["articles"]
